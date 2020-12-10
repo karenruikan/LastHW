@@ -1,36 +1,74 @@
-
-public class Ship {
-
-    //the row (0 to 9) which contains the bow (front) of the ship.
+/**
+ * 
+ * @author Karen Kan, Sarah Shamsie
+ *
+ */
+public abstract class Ship {
+    
+    public Ship() {
+	
+    }
+    
     int bowRow;
-    //the column (0 to 9) which contains the bow (front) of the ship.
     int bowColumn;
-    //the number of squares occupied by the ship. An ”empty sea” location has length 1.
     int length; 
-    //true if the ship occupies a single row, false otherwise.
     boolean horizontal;
-    //an array of booleans telling whether that part of the ship has been hit. 
-    //Only battleships use all four locations; 
-    //cruisers use the first three; destroyers 2; 
-    //submarines 1; and ”empty sea” either one or none.
+
     boolean [] hit = new boolean[4]; 
     
-    //Returns the length of this particular ship. 
-    int getLength()
-   
-    int getBowRow()
-    int getBowColumn()
-    boolean isHorizontal()
+    //get ship length
+    int getLength() {
+	return this.length;
+    }
+    //get ship bow row number
+    int getBowRow() {
+	return this.bowRow;
+    }
+    //get ship bow column number
+    int getBowColumn() {
+	return this.bowColumn;
+    }
+    //check if the ship is horizontal
+    boolean isHorizontal() {
+	return this.horizontal;
+    }
     
     //Sets the value of bowRow
-    void setBowRow(int row)
+    void setBowRow(int row) {
+	this.bowRow = row;
+    }
     //Sets the value of bowColumn
-    void setBowColumn(int column)
-    //Sets the value of the instance variable hori- zontal.
-    void setHorizontal(boolean horizontal)
+    void setBowColumn(int column) {
+	this.bowColumn = column;
+    }
+    //Sets the value of the instance variable horizontal.
+    void setHorizontal(boolean horizontal) {
+	this.horizontal = horizontal;
+    }
     
-    abstract String getShipType()
-    boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean)
+    //This is an abstract method and it has no body.
+    abstract String getShipType() {
+	
+    }
+    
+    /**
+     * Returns true if it is okay to put a ship of this length with its bow in this location, 
+     * with the given orientation, and returns false otherwise. 
+     * The ship must not overlap another ship, 
+     * or touch another ship (vertically, horizontally, or diagonally), 
+     * and it must not ”stick out” beyond the array. 
+     * Does not actually change either the ship or the Ocean, 
+     * just says whether it is legal to do so.
+     * 
+     * @param row
+     * @param column
+     * @param horizontal
+     * @param ocean
+     * @return
+     */
+    boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
+	if horizontal == true 
+    }
     
     void placeShipAt(int row, int column, boolean horizontal, Ocean ocean)
 
