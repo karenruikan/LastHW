@@ -69,7 +69,7 @@ public abstract class Ship {
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
 
 	//get the current ship array using the getShipArray method from Ocean class
-	Ship[][] theShipArray = ocean.getShipArray();
+	Ship[][] theShip = ocean.getShipArray();
 
 
 	
@@ -80,7 +80,7 @@ public abstract class Ship {
 	if (horizontal == true) {
 	    for (int j = (column - 1); j < (column + this.getLength()); j++) {
 		for (int i = (row - 1); i < (row + 1); i++) {
-		    if (theShipArray[i][j].isOccupied() == true) return false;
+		    if (theShip[i][j].isOccupied() == true) return false;
 		}
 	    } return true;
 	}
@@ -89,22 +89,49 @@ public abstract class Ship {
 	if (horizontal == false) {
 	    for (int j = (column - 1); j < (column + 1); j++) {
 		for (int i = (row - 1); i < (row + this.getLength()); i++) {
-		    if (theShipArray[i][j].isOccupied() == true) return false;
+		    if (theShip[i][j].isOccupied() == true) return false;
 		}
 	    } return true;
 	}
 
     }
+    
+    /**
+     * "puts” the ship in the ocean
+     * @param row
+     * @param column
+     * @param horizontal
+     * @param ocean
+     */
     void placeShipAt(int row, int column, boolean horizontal, Ocean ocean) {
-	if (ships.okToPlaceShipAt(row, column, horizontal, ocean) == false) throw new Exception();
-	
-	
-	    
+
+	Ship[][] theShip = ocean.getShipArray();
+
+	if (this.okToPlaceShipAt(row, column, horizontal, ocean) == false) throw new Exception();
+
+	this.bowRow = row;
+	this.bowColumn = column;
+	this.horizontal = horizontal;
+
+	if (horizontal == false) {
+	    for (int i = row; i < (row + this.getLength() - 1); i++) {
+		theShip[i][column] = new Ship(); //putting a reference to the ship in each of 1 or more locations
+	    }
 	}
-	
+
+	if (horizontal == true) {
+	    for (int j = column; j < (column + this.getLength() - 1); j++) {
+		theShip[row][j] = new Ship(); //putting a reference to the ship in each of 1 or more locations
+	    }
+	}
+
+	else break;
+
     }
 
-    boolean shootAt(int row, int column)
+    boolean shootAt(int row, int column) {
+	
+    }
     
     boolean isSunk()
     
