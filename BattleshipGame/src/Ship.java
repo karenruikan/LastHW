@@ -67,10 +67,42 @@ public abstract class Ship {
      * @return
      */
     boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
-	if horizontal == true 
+
+	//get the current ship array using the getShipArray method from Ocean class
+	Ship[][] theShipArray = ocean.getShipArray();
+
+
+	
+	//horizontal
+	//if the ship is horizontal, must make sure the cells surrounding the ship
+	//are all empty. If the ship is 3 cells long, need to make sure the 3*5 area 
+	//around the ship are all empty.
+	if (horizontal == true) {
+	    for (int j = (column - 1); j < (column + this.getLength()); j++) {
+		for (int i = (row - 1); i < (row + 1); i++) {
+		    if (theShipArray[i][j].isOccupied() == true) return false;
+		}
+	    } return true;
+	}
+
+	//not horizontal
+	if (horizontal == false) {
+	    for (int j = (column - 1); j < (column + 1); j++) {
+		for (int i = (row - 1); i < (row + this.getLength()); i++) {
+		    if (theShipArray[i][j].isOccupied() == true) return false;
+		}
+	    } return true;
+	}
+
     }
-    
-    void placeShipAt(int row, int column, boolean horizontal, Ocean ocean)
+    void placeShipAt(int row, int column, boolean horizontal, Ocean ocean) {
+	if (ships.okToPlaceShipAt(row, column, horizontal, ocean) == false) throw new Exception();
+	
+	
+	    
+	}
+	
+    }
 
     boolean shootAt(int row, int column)
     
