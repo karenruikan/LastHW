@@ -6,7 +6,6 @@
 public abstract class Ship {
 
 	public Ship() {
-
 	}
 
 	int bowRow;
@@ -169,7 +168,11 @@ public abstract class Ship {
 
 	@Override
 	public String toString() {
-		return "";
+		if (isSunk()) {
+			return "x";
+		} else {
+			return "S";
+		}
 	}
 
 }
