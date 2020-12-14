@@ -26,7 +26,20 @@ public class Testing {
 //		}
 		
 		Cruiser c = new Cruiser();
+		Ocean o = new Ocean();
 		System.out.println(Arrays.toString(c.hit));
+		
+		for (int i = 0; i < o.test.length; i++) {
+			System.out.println(Arrays.toString(o.test[0]));
+			
+		}
+		
+		System.out.println(Arrays.toString(o.test[0]));
+		
+		EmptySea e = new EmptySea();
+		System.out.println(e.toString());
+		
+		o.placeAllShipsRandomly();
 		
 	}
 	

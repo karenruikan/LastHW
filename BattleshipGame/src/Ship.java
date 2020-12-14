@@ -76,8 +76,8 @@ public abstract class Ship {
 		// are all empty. If the ship is 3 cells long, need to make sure the 3*5 area
 		// around the ship are all empty.
 		if (horizontal) {
-			for (int j = (column - 1); j <= (column + this.getLength()); j++) {
-				for (int i = (row - 1); i <= (row + 1); i++) {
+			for (int j = column; j <= column + this.getLength() - 1; j++) {
+				for (int i = row - 1; i <= row + 1; i++) {
 					if (ocean.isOccupied(i, j))
 						return false;
 				}
@@ -87,8 +87,8 @@ public abstract class Ship {
 
 		// not horizontal
 		if (!horizontal) {
-			for (int j = (column - 1); j <= (column + 1); j++) {
-				for (int i = (row - 1); i <= (row + this.getLength()); i++) {
+			for (int j = column - 1; j <= column + 1; j++) {
+				for (int i = row; i <= row + this.getLength() - 1; i++) {
 					if (ocean.isOccupied(i, j))
 						return false;
 				}
