@@ -53,10 +53,7 @@ public class Ocean {
 	}
 
 	boolean isOccupied(int row, int column) {
-		if (this.getShipArray()[row][column].getClass().isInstance(EmptySea.class)) {
-			return false;
-		}
-		return true;
+		return this.getShipArray()[row][column] instanceof EmptySea;
 	}
 
 	boolean shootAt(int row, int column) {
@@ -76,7 +73,7 @@ public class Ocean {
 	}
 
 	boolean isGameOver() {
-		return true;
+		return shipsSunk == 10;
 	}
 
 	Ship[][] getShipArray() {
