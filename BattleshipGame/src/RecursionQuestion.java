@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 public class RecursionQuestion {
 
+	private static ArrayList<ArrayList<Integer>> allPsets;
+
 	static String killCommas(String s) {
 
 		// base case - string of length 0
@@ -20,7 +22,7 @@ public class RecursionQuestion {
 
 	static int sumDigits(int num) throws IllegalArgumentException {
 		// base case - not a positive integer
-		if (num < 0)
+		if (num <= 0)
 			throw new IllegalArgumentException("this number is not a positive integer");
 
 		// base case - single digit number - return just the number
@@ -33,24 +35,42 @@ public class RecursionQuestion {
 	}
 
 	static void powerSet(int[] arr) {
-		ArrayList<ArrayList<Integer>> psets = new ArrayList<ArrayList<Integer>>();
-		// base case - arr of length 0
-		if (arr.length == 0)
-			System.out.println("{}");
+		if (arr.length == 0) {
+			allPsets = new ArrayList<ArrayList<Integer>>();
+			ArrayList<Integer> emptySet = new ArrayList<>();
+			allPsets.add(emptySet);
+		} else {
+			int[] subset = Arrays.copyOf(arr, arr.length - 1);
+			Integer lastElement = new Integer(arr[arr.length - 1]);
+			ArrayList<Integer> singleElement = new ArrayList<>();
+			powerSet(subset);
 
-		psets.add(new ArrayList<Integer>(Arrays.asList(arr[arr.length-1])));
-	
-		for (int i = 0; i < arr.length; i++) {
-			powerSet(arr);
+			singleElement.add(lastElement);
+
+			if (!allPsets.contains(lastElement)) {
+				ArrayList<ArrayList<Integer>> newSubset = new ArrayList<ArrayList<Integer>>();
+				for (ArrayList<Integer> set : allPsets) {
+					ArrayList<Integer> newArrLst = new ArrayList<>();
+					newArrLst.addAll(set);
+					newArrLst.add(lastElement);
+					newSubset.add(newArrLst);
+				}
+				allPsets.addAll(newSubset);
+			}
 		}
-
-		System.out.println(permList);
-
+		System.out.println(allPsets);
 	}
 
 	public static void main(String[] args) {
 		System.out.println(killCommas("a,c,v,d,a,c,f"));
-		System.out.println(sumDigits(12344));
+		System.out.println(sumDigits(786));
+		int[] test = new int[3];
+		test[0] = 1;
+		test[1] = 2;
+		test[2] = 3;
+
+		powerSet(test);
+
 	}
 
 }
