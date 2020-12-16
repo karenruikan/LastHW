@@ -19,7 +19,7 @@ public class EmptySea extends Ship {
 	//TODO: Need to update this method
 	@Override
 	public String toString() {
-		return "";
+		return "-";
 	}
 
 	@Override
