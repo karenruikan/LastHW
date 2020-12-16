@@ -75,227 +75,31 @@ public abstract class Ship {
 	// are all empty. If the ship is 3 cells long, need to make sure the 3*5 area
 	// around the ship are all empty.
 	if (horizontal) {
-	    //check 4 corner cases
-	    //upper left corner
-	    if (row == 0 && column == 0) {
+	    //if ship is out of the map area
+	    if (column + this.getLength() - 1 > 9) return false;
 
-
-		for (int j = column; j <= column + this.getLength(); j++) {
-		    for (int i = row; i <= row + 1; i++) {
-			if (ocean.isOccupied(i,j)) 
-			    return false;
-		    }
+	    for (int j = column - 1; j <= column + this.getLength(); j++) {
+		for (int i = row - 1; i <= row + 1; i++) {
+		    if (ocean.isOccupied(i, j))
+			return false;
 		}
-		return true;
 	    }
-	    //upper right corner
-	    if (row == 0 && column == 9) {
-		if (!ocean.isOccupied(0, 8) && 
-			!ocean.isOccupied(0, 9) && 
-			!ocean.isOccupied(1, 8) && 
-			!ocean.isOccupied(1, 9)) return true;
-		else return false;
-	    }
-
-	    //lower left corner
-	    if (row == 9 && column == 0) {
-		for (int j = column; j <= column + this.getLength(); j++) {
-		    for (int i = row - 1; i <= row; i++) {
-			if (ocean.isOccupied(i,j)) 
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //lower right corner
-	    if (row == 9 && column == 9) {
-		if (!ocean.isOccupied(8, 8) && 
-			!ocean.isOccupied(8, 9) && 
-			!ocean.isOccupied(9, 8) && 
-			!ocean.isOccupied(9, 9)) return true;
-		else return false;
-	    }
-
-	    //first row, excluding corners
-	    if (row == 0 && column >= 1 && column <= 8) {
-		//if ship is out of the map area
-		if (column + this.getLength() - 1 > 9) return false;
-
-		for (int j = column - 1; j <= column + this.getLength(); j++) {
-		    for (int i = row; i <= row + 1; i++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //last row, excluding corners
-	    if (row == 9 && column >= 1 && column <= 8) {
-		//if ship is out of the map area
-		if (column + this.getLength() - 1 > 9) return false;
-
-		for (int j = column - 1; j <= column + this.getLength(); j++) {
-		    for (int i = row - 1; i <= row; i++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //first column, excluding corners
-	    if (column == 0 && row >= 1 && row <= 8) {
-		for (int j = column; j <= column + this.getLength(); j++) {
-		    for (int i = row - 1; i <= row + 1; i++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //last column, excluding corners
-	    if (column == 9 && row >= 1 && row <= 8) {
-		//if ship is out of the map area
-		if (column + this.getLength() - 1 > 9) return false;
-
-		for (int j = column - 1; j <= column + this.getLength(); j++) {
-		    for (int i = row - 1; i <= row + 1; i++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //middle 8 * 8 map area
-	    if (row >= 1 && row <= 8 && column >= 1 && column <= 8) {
-		//if ship is out of the map area
-		if (column + this.getLength() - 1 > 9) return false;
-
-		for (int j = column - 1; j <= column + this.getLength(); j++) {
-		    for (int i = row - 1; i <= row + 1; i++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
+	    return true;
 	}
 
 	// not horizontal
-	if (!horizontal) {
-	    //check 4 corner cases
-	    //upper left corner
-	    if (row == 0 && column == 0) {
-		for (int i = row; i <= row + this.getLength(); i++) {
-		    for (int j = column; j <= column + 1; j++) {
-			if (ocean.isOccupied(i,j)) 
-			    return false;
-		    }
+	else {
+	    //if ship is out of the map area
+	    if (row + this.getLength() - 1 > 9) return false;
+
+	    for (int i = row - 1; i <= row + this.getLength(); i++) {
+		for (int j = column - 1; j <= column + 1; j++) {
+		    if (ocean.isOccupied(i, j))
+			return false;
 		}
-		return true;
 	    }
-	    //upper right corner
-	    if (row == 0 && column == 9) {
-		for (int i = row; i <= row + this.getLength(); i++) {
-		    for (int j = column - 1; j <= column; i++) {
-			if (ocean.isOccupied(i,j)) 
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //lower left corner
-	    if (row == 9 && column == 0) {
-		if (!ocean.isOccupied(8, 0) && 
-			!ocean.isOccupied(8, 1) && 
-			!ocean.isOccupied(9, 0) && 
-			!ocean.isOccupied(9, 1)) return true;
-		else return false;
-	    }
-
-	    //lower right corner
-	    if (row == 9 && column == 9) {
-		if (!ocean.isOccupied(8, 8) && 
-			!ocean.isOccupied(8, 9) && 
-			!ocean.isOccupied(9, 8) && 
-			!ocean.isOccupied(9, 9)) return true;
-		else return false;
-	    }
-
-	    //first row, excluding corners
-	    if (row == 0 && column >= 1 && column <= 8) {
-		for (int i = row; i <= row + this.getLength(); i++) {
-		    for (int j = column - 1; j <= column + 1; j++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //last row, excluding corners
-	    if (row == 9 && column >= 1 && column <= 8) {
-		//if ship is out of the map area
-		if (row + this.getLength() - 1 > 9) return false;
-
-		for (int i = row - 1; i <= row + this.getLength(); i++) {
-		    for (int j = column - 1; j <= column + 1; j++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //first column, excluding corners
-	    if (column == 0 && row >= 1 && row <= 8) {
-		//if ship is out of the map area
-		if (row + this.getLength() - 1 > 9) return false;
-
-		for (int i = row - 1; i <= row + this.getLength(); i++) {
-		    for (int j = column; j <= column + 1; j++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //last column, excluding corners
-	    if (column == 9 && row >= 1 && row <= 8) {
-		//if ship is out of the map area
-		if (row + this.getLength() - 1 > 9) return false;
-
-		for (int i = row - 1; i <= row + this.getLength(); i++) {
-		    for (int j = column - 1; j <= column; j++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
-
-	    //middle 8 * 8 map area
-	    if (row >= 1 && row <= 8 && column >= 1 && column <= 8) {
-		//if ship is out of the map area
-		if (row + this.getLength() - 1 > 9) return false;
-
-		for (int i = row - 1; i <= row + this.getLength(); i++) {
-		    for (int j = column - 1; j <= column + 1; j++) {
-			if (ocean.isOccupied(i, j))
-			    return false;
-		    }
-		}
-		return true;
-	    }
+	    return true;
 	}
-
-	return false;
 
     }
 
@@ -311,7 +115,7 @@ public abstract class Ship {
 
 	Ship[][] theShip = ocean.getShipArray();
 
-	if (!this.okToPlaceShipAt(row, column, horizontal, ocean)) {
+	if (this.okToPlaceShipAt(row, column, horizontal, ocean)) {
 	    this.setBowRow(row);
 	    this.setBowColumn(column);
 	    this.setHorizontal(horizontal);
@@ -333,25 +137,15 @@ public abstract class Ship {
 
     boolean shootAt(int row, int column) {
 
-	// get the location for the hit array
-	if (this.isHorizontal()) {
-	    if (row == this.getBowRow()) {
-		for (int i = this.getBowColumn(); i < this.getBowColumn() + this.getLength(); i++) {
-		    if (i == column) {
-			this.hit[i - this.getBowColumn()] = true;
-			return true;
-		    }
-		}
+	if(!this.isSunk()) {
+	    if (this.isHorizontal()) {
+		this.hit[row - this.getBowRow()] = true;
+		return true;
+		    
 	    }
-	}
-	if (!this.isHorizontal()) {
-	    if (column == this.getBowColumn()) {
-		for (int i = this.getBowRow(); i < this.getBowRow() + this.getLength(); i++) {
-		    if (i == row) {
-			this.hit[i - this.getBowRow()] = true;
-			return true;
-		    }
-		}
+	    else {
+		this.hit[column - this.getBowColumn()] = true;
+		return true;
 	    }
 	}
 	return false;
