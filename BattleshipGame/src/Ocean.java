@@ -56,13 +56,19 @@ public class Ocean {
 
     boolean isOccupied(int row, int column) {
 	
+  //if user inputs invalid coordinates, return false
 	if (row < 0 || row > 9 || column < 0 || column > 9) return false;
-
-	if (this.getShipArray()[row][column].getClass().isInstance(EmptySea.class)) {
-	    return false;
+  
+  //if it's EmptySea return false
+  else if (this.getShipArray()[row][column] instanceof EmptySea){
+    return false;
 	}
-	return true;
-    }
+  
+  //otherwise return true
+  else{
+    return true;
+  }
+
 
     boolean shootAt(int row, int column) {
 	shotsFired++;
@@ -111,6 +117,25 @@ public class Ocean {
 		    System.out.print(" " + ships[i][j].toString());
 		}
 	    }
+
+	int getShotsFired() {
+		return this.shotsFired;
+	}
+
+	int getHitCount() {
+		return this.hitCount;
+	}
+
+	int getShipsSunk() {
+		return this.shipsSunk;
+	}
+
+	boolean isGameOver() {
+		return shipsSunk == 10;
+	}
+
+	Ship[][] getShipArray() {
+		return this.ships;
 	}
     }
 
