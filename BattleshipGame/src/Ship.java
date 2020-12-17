@@ -43,12 +43,18 @@ public abstract class Ship {
 	}
 
 	// Sets the value of bowRow
-	void setBowRow(int row) {
+	void setBowRow(int row) throws IllegalArgumentException {
+		if (row < 0 || row > 9) {
+			throw new IllegalArgumentException("invalid row coordinates - need to enter a number between 0 and 9");
+		}
 		this.bowRow = row;
 	}
 
 	// Sets the value of bowColumn
 	void setBowColumn(int column) {
+		if (column < 0 || column > 9) {
+			throw new IllegalArgumentException("invalid column coordinates - need to enter a number between 0 and 9");
+		}
 		this.bowColumn = column;
 	}
 
@@ -59,6 +65,10 @@ public abstract class Ship {
 
 	// This is an abstract method and it has no body.
 	abstract String getShipType();
+
+	private boolean checkCoordsFail(int row, int column) {
+		return (row < 0 || row > 9 || column < 0 || column > 9);
+	}
 
 	/**
 	 * Returns true if it is okay to put a ship of this length with its bow in this
@@ -74,13 +84,18 @@ public abstract class Ship {
 	 * @param ocean
 	 * @return
 	 */
-	boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
+	boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) throws IllegalArgumentException {
 		// get the current ship array using the getShipArray method from Ocean class
 
 		// horizontal
 		// if the ship is horizontal, must make sure the cells surrounding the ship
 		// are all empty. If the ship is 3 cells long, need to make sure the 3*5 area
 		// around the ship are all empty.
+		
+		if (checkCoordsFail(row, column)) {
+			throw new IllegalArgumentException("invalid row and column coordinates - need to enter a number between 0 and 9");
+		}
+
 		if (horizontal) {
 			// if ship is out of the map area
 			if (column + this.getLength() - 1 > 9)
