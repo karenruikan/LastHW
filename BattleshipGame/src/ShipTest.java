@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
  * @author Karen Kan, Sarah Shamsie
  *
  */
+
 class ShipTest {
 
 	// create some mock Ship objects for the test cases

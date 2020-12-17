@@ -106,8 +106,9 @@ public abstract class Ship {
 
 			for (int j = column - 1; j <= column + this.getLength(); j++) {
 				for (int i = row - 1; i <= row + 1; i++) {
-					if (ocean.isOccupied(i, j))
+					if (ocean.isOccupied(i, j)) {
 						return false;
+					}
 				}
 			}
 			return true;
@@ -181,8 +182,8 @@ public abstract class Ship {
 				this.hit[row - this.getBowRow()] = true;
 				return true;
 			}
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	/**

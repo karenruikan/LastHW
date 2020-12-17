@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
  * @author Karen Kan, Sarah Shamsie
  *
  */
+
 class OceanTest {
 
 	// create a mock Ocean objects for the test cases
@@ -203,6 +204,7 @@ class OceanTest {
 	void testGetShipArray() {
 		Ocean emptyOcean = new Ocean();
 
+		// test that the emptyOcean is in fact empty
 		for (int i = 0; i < emptyOcean.getShipArray().length; i++) {
 			for (int j = 0; j < emptyOcean.getShipArray()[i].length; j++) {
 				assertTrue(emptyOcean.getShipArray()[i][j] instanceof EmptySea);

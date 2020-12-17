@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BattleshipGame {
@@ -21,16 +22,16 @@ public class BattleshipGame {
 		// place all ships randomly on the board
 		myOcean.placeAllShipsRandomly();
 
-
 		// print out the game board;
 		System.out.println();
 		System.out.println("Printing game board...");
 		System.out.println("You have currently sunk " + myOcean.getShipsSunk() + " ship(s)");
+		System.out.println("Your current score is " + myOcean.getShotsFired() + " shot(s)");
 		System.out.println();
 		myOcean.print();
-//		for (int i = 0; i < 10; i++) {
-//			System.out.println(Arrays.toString(myOcean.getShipArray()[i]));
-//		}
+		for (int i = 0; i < 10; i++) {
+			System.out.println(Arrays.toString(myOcean.getShipArray()[i]));
+		}
 
 		while (!myOcean.isGameOver()) {
 			// ask player for their first input
@@ -56,13 +57,15 @@ public class BattleshipGame {
 			}
 			// prints the new game board
 			System.out.println("You have currently sunk " + myOcean.getShipsSunk() + " ship(s)");
+			System.out.println("Your current score is " + myOcean.getShotsFired() + " shots");
+
 			myOcean.print();
 		}
 
 		int currentScore = myOcean.getShotsFired();
 		bestScore = Math.min(currentScore, bestScore);
-		
-		//print final message
+
+		// print final message
 		System.out.println();
 		System.out.println("Game Finished. Your final score is " + currentScore);
 		System.out.println("Current best score is " + bestScore);

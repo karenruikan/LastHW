@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * This class creates an Ocean where the game will take place
  * 
- * @author Sarah Shamsie, Karen Kan
+ * @author Karen Kan, Sarah Shamsie
  *
  */
 
@@ -25,6 +25,8 @@ public class Ocean {
 		shotsFired = 0;
 		hitCount = 0;
 		shipsSunk = 0;
+
+		// initialize the ocean of EmptySea objects
 		for (int i = 0; i < this.ships.length; i++) {
 			for (int j = 0; j < this.ships[i].length; j++) {
 				this.ships[i][j] = new EmptySea();
@@ -49,6 +51,8 @@ public class Ocean {
 		int placeCol = rand.nextInt(9 - 0) + 0;
 		boolean placeHor = rand.nextBoolean();
 
+		// for each ship, generate a random location and horizontal position and see if
+		// it's okay to place
 		for (Ship s : shipsToPlace) {
 
 			while (!s.okToPlaceShipAt(placeRow, placeCol, placeHor, this)) {
@@ -70,12 +74,14 @@ public class Ocean {
 	boolean isOccupied(int row, int column) {
 
 		// if user inputs invalid coordinates, return false
-		if (row < 0 || row > 9 || column < 0 || column > 9)
+		if (row < 0 || row > 9 || column < 0 || column > 9) {
 			return false;
+		}
 
 		// if it's EmptySea return false
-		if (this.getShipArray()[row][column] instanceof EmptySea)
+		if (this.getShipArray()[row][column] instanceof EmptySea) {
 			return false;
+		}
 
 		// otherwise return true
 		return true;
@@ -108,8 +114,9 @@ public class Ocean {
 				shipsSunk++;
 			}
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/**
