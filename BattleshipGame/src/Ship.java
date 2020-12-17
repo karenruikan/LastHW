@@ -105,7 +105,6 @@ public abstract class Ship {
 
     /**
      * "puts” the ship in the ocean
-     * 
      * @param row
      * @param column
      * @param horizontal
@@ -135,22 +134,35 @@ public abstract class Ship {
 
     }
 
+    /**
+     * If a part of the ship occupies the given row and column, 
+     * and the ship hasn’t been sunk, mark that part of the ship as ”hit”
+     * (in the hit array, 0 indicates the bow) and return true, 
+     * otherwise return false.
+     * @param row
+     * @param column
+     * @return
+     */
     boolean shootAt(int row, int column) {
 
 	if(!this.isSunk()) {
 	    if (this.isHorizontal()) {
 		this.hit[row - this.getBowRow()] = true;
 		return true;
-		    
+
 	    }
 	    else {
 		this.hit[column - this.getBowColumn()] = true;
 		return true;
 	    }
 	}
-	return false;
+	else return false;
     }
 
+    /**
+     * Return true if every part of the ship has been hit, false otherwise.
+     * @return
+     */
     boolean isSunk() {
 	for (boolean b : this.hit) {
 	    if (!b) {
@@ -160,6 +172,13 @@ public abstract class Ship {
 	return true;
     }
 
+
+    /**
+     * This method should return ”x” if the ship has been sunk, 
+     * ”S” if it has not been sunk. This method can be used to print 
+     * out locations in the ocean that have been shot at; 
+     * it should not be used to print locations that have not been shot at.
+     */
     @Override
     public String toString() {
 	if (isSunk()) {
