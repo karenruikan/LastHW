@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * This is an abstract class that creates attributes of a generic ship that will
  * extend to other ship types
@@ -91,9 +93,10 @@ public abstract class Ship {
 		// if the ship is horizontal, must make sure the cells surrounding the ship
 		// are all empty. If the ship is 3 cells long, need to make sure the 3*5 area
 		// around the ship are all empty.
-		
+
 		if (checkCoordsFail(row, column)) {
-			throw new IllegalArgumentException("invalid row and column coordinates - need to enter a number between 0 and 9");
+			throw new IllegalArgumentException(
+					"invalid row and column coordinates - need to enter a number between 0 and 9");
 		}
 
 		if (horizontal) {
@@ -188,7 +191,7 @@ public abstract class Ship {
 	 * @return
 	 */
 	boolean isSunk() {
-		for (boolean b : this.hit) {
+		for (boolean b : Arrays.copyOfRange(this.hit, 0, this.length)) {
 			if (!b) {
 				return false;
 			}

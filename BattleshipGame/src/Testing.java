@@ -50,6 +50,9 @@ public class Testing {
 //		String t = "test";
 //		System.out.println(t.substring(1, t.length()));
 		
+		int[] test = {1,2,3,4};
+		System.out.println(Arrays.toString(Arrays.copyOfRange(test,0, 3)));
+		
 	}
 	
 }

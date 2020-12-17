@@ -2,11 +2,15 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Random;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * JUnit tests for the Ship class and subclasses
+ * 
+ * @author Karen Kan, Sarah Shamsie
+ *
+ */
 class ShipTest {
 
 	// create some mock Ship objects for the test cases
@@ -16,7 +20,6 @@ class ShipTest {
 	Ship subTest;
 	Ship emptySeaTest;
 
-	Random rand = new Random();
 	String errMessRow = "invalid row coordinates - need to enter a number between 0 and 9";
 	String errMessCol = "invalid column coordinates - need to enter a number between 0 and 9";
 	String errMessAll = "invalid row and column coordinates - need to enter a number between 0 and 9";
@@ -46,6 +49,7 @@ class ShipTest {
 
 	@Test
 	void testGetLength() {
+		// test that the length of each ship type is returned correctly
 		assertEquals(this.battleshipTest.getLength(), 4);
 		assertEquals(this.cruiserTest.getLength(), 3);
 		assertEquals(this.destroyerTest.getLength(), 2);
@@ -356,20 +360,115 @@ class ShipTest {
 
 	@Test
 	void testShootAt() {
-		
-		this.battleshipTest.hit = {true, true, true, true};
-		
-	
+
+		// create a mock ocean object to place the ships in
+		Ocean oceanTest = new Ocean();
+
+		// place a horizontal battleship
+		this.battleshipTest.placeShipAt(1, 0, true, oceanTest);
+		// place a horizontal cruiser
+		this.cruiserTest.placeShipAt(5, 3, true, oceanTest);
+		// place a vertical destroyer
+		this.destroyerTest.placeShipAt(8, 7, false, oceanTest);
+		// place a vertical sub
+		this.subTest.placeShipAt(2, 7, false, oceanTest);
+
+		// this ship is ready to be sunk and so shootAt should return false
+		boolean[] bSunk = { true, true, true, true };
+		boolean[] cSunk = { true, true, true, false };
+		boolean[] dSunk = { true, true, false, false };
+		boolean[] sSunk = { true, false, false, false };
+
+		this.battleshipTest.hit = bSunk;
+		assertEquals(this.battleshipTest.shootAt(1, 2), false);
+		this.cruiserTest.hit = cSunk;
+		assertEquals(this.cruiserTest.shootAt(5, 4), false);
+		this.destroyerTest.hit = dSunk;
+		assertEquals(this.destroyerTest.shootAt(8, 7), false);
+		this.subTest.hit = sSunk;
+		assertEquals(this.subTest.shootAt(2, 7), false);
+
+		// this ship is not ready to be sunk
+		boolean[] bNotSunk = { false, true, false, false };
+		boolean[] cNotSunk = { true, false, true, false };
+		boolean[] dNotSunk = { false, true, false, false };
+		boolean[] sNotSunk = { false, false, false, false };
+
+		this.battleshipTest.hit = bNotSunk;
+		assertEquals(this.battleshipTest.shootAt(1, 2), true);
+		this.cruiserTest.hit = cNotSunk;
+		assertEquals(this.cruiserTest.shootAt(5, 4), true);
+		this.destroyerTest.hit = dNotSunk;
+		assertEquals(this.destroyerTest.shootAt(8, 7), true);
+		this.subTest.hit = sNotSunk;
+		assertEquals(this.subTest.shootAt(2, 7), true);
+
+		// test specifically for the EmptySea class, which should always return false
+		assertEquals(this.emptySeaTest.shootAt(7, 2), false);
+		assertEquals(this.emptySeaTest.shootAt(4, 7), false);
+
 	}
 
-//	@Test
-//	void testIsSunk() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	void testToString() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	void testIsSunk() {
+		// this ship is ready to be sunk
+		boolean[] bSunk = { true, true, true, true };
+		boolean[] cSunk = { true, true, true, false };
+		boolean[] dSunk = { true, true, false, false };
+		boolean[] sSunk = { true, false, false, false };
+
+		this.battleshipTest.hit = bSunk;
+		assertEquals(this.battleshipTest.isSunk(), true);
+		this.cruiserTest.hit = cSunk;
+		assertEquals(this.cruiserTest.isSunk(), true);
+		this.destroyerTest.hit = dSunk;
+		assertEquals(this.destroyerTest.isSunk(), true);
+		this.subTest.hit = sSunk;
+		assertEquals(this.subTest.isSunk(), true);
+
+		// this ship is not ready to be sunk
+		boolean[] bNotSunk = { false, false, false, false };
+		boolean[] cNotSunk = { true, false, true, false };
+		boolean[] dNotSunk = { false, true, false, false };
+		boolean[] sNotSunk = { false, false, false, false };
+
+		this.battleshipTest.hit = bNotSunk;
+		assertEquals(this.battleshipTest.isSunk(), false);
+		this.cruiserTest.hit = cNotSunk;
+		assertEquals(this.cruiserTest.isSunk(), false);
+		this.destroyerTest.hit = dNotSunk;
+		assertEquals(this.destroyerTest.isSunk(), false);
+		this.subTest.hit = sNotSunk;
+		assertEquals(this.subTest.isSunk(), false);
+
+		// test specifically for the EmptySea class, which should always return false
+		assertEquals(this.emptySeaTest.isSunk(), false);
+	}
+
+	@Test
+	void testToString() {
+
+		// these ships are sunk and so should return "x"
+		boolean[] bSunk = { true, true, true, true };
+		this.battleshipTest.hit = bSunk;
+		assertTrue(this.battleshipTest.toString().equals("x"));
+
+		boolean[] cSunk = { true, true, true, false };
+		this.cruiserTest.hit = cSunk;
+		assertTrue(this.cruiserTest.toString().equals("x"));
+
+		// these ships are not sunk and so should return "S"
+		boolean[] bNotSunk = { false, false, false, false };
+		this.battleshipTest.hit = bNotSunk;
+		assertTrue(this.battleshipTest.toString().equals("S"));
+
+		boolean[] cNotSunk = { true, false, true, false };
+		this.cruiserTest.hit = cNotSunk;
+		assertTrue(this.cruiserTest.toString().equals("S"));
+
+		// test specifically for the EmptySea class, which should always return "-"
+		assertEquals(this.emptySeaTest.toString(), "-");
+
+	}
 
 }
