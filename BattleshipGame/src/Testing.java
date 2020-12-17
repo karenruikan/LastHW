@@ -25,25 +25,30 @@ public class Testing {
 //			return coordinates;
 //		}
 		
-		Cruiser c = new Cruiser();
-		Ocean o = new Ocean();
-		System.out.println(Arrays.toString(c.hit));
-		System.out.println(o.isOccupied(0, 0));
-		
-//		for (int i = 0; i < o.test.length; i++) {
-//			System.out.println(Arrays.toString(o.test[0]));
+//		Cruiser c = new Cruiser();
+//		Ocean o = new Ocean();
+//		System.out.println(Arrays.toString(c.hit));
+//		System.out.println(o.isOccupied(0, 0));
+//		
+////		for (int i = 0; i < o.test.length; i++) {
+////			System.out.println(Arrays.toString(o.test[0]));
+////			
+////		}
+////		
+////		System.out.println(Arrays.toString(o.test[0]));
+////		
+////		EmptySea e = new EmptySea();
+////		System.out.println(e.toString());
+////		
+//		o.placeAllShipsRandomly();
+//		
+//		for (int i =0; i < 10; i++) {
+//			System.out.println(Arrays.toString(o.getShipArray()[i]));
 //			
 //		}
-//		
-//		System.out.println(Arrays.toString(o.test[0]));
-//		
-//		EmptySea e = new EmptySea();
-//		System.out.println(e.toString());
-//		
-//		o.placeAllShipsRandomly();
 		
-		String t = "test";
-		System.out.println(t.substring(1, t.length()));
+//		String t = "test";
+//		System.out.println(t.substring(1, t.length()));
 		
 	}
 	

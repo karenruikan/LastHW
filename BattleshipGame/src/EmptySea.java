@@ -1,30 +1,50 @@
+/**
+ * This class creates an EmptySea, which inherits the Ship class
+ * 
+ * @author Karen Kan, Sarah Shamsie
+ *
+ */
 
 public class EmptySea extends Ship {
 
-    public EmptySea() {
-	super();
-	this.length = 1;
-    }
+	/**
+	 * Constructor for the EmptySea class initialize hit array for length 1
+	 */
+	public EmptySea() {
+		super();
+		this.length = 1;
+	}
 
-    @Override
-    boolean shootAt(int row, int column){
-	return false;
-    }
+	/**
+	 * shootAt always returns false
+	 */
+	@Override
+	boolean shootAt(int row, int column) {
+		return false;
+	}
 
-    @Override
-    boolean isSunk() {
-	return false;
-    }
+	/**
+	 * isSunk always returns false
+	 */
+	@Override
+	boolean isSunk() {
+		return false;
+	}
 
-    //TODO: Need to update this method
-    @Override
-    public String toString() {
-	return "-";
-    }
+	/**
+	 * toString always returns "-" because a shot here will hit nothing
+	 */
+	@Override
+	public String toString() {
+		return "-";
+	}
 
-    @Override
-    String getShipType() {
-	return "empty";
-    }
+	/**
+	 * return ship name
+	 */
+	@Override
+	String getShipType() {
+		return "empty";
+	}
 
 }
