@@ -93,7 +93,6 @@ public abstract class Ship {
 		// if the ship is horizontal, must make sure the cells surrounding the ship
 		// are all empty. If the ship is 3 cells long, need to make sure the 3*5 area
 		// around the ship are all empty.
-
 		if (checkCoordsFail(row, column)) {
 			throw new IllegalArgumentException(
 					"invalid row and column coordinates - need to enter a number between 0 and 9");
@@ -128,7 +127,6 @@ public abstract class Ship {
 			}
 			return true;
 		}
-
 	}
 
 	/**
@@ -143,24 +141,26 @@ public abstract class Ship {
 
 		Ship[][] theShip = ocean.getShipArray();
 
+		// check whether it's okay based on features and then places it
 		if (this.okToPlaceShipAt(row, column, horizontal, ocean)) {
 			this.setBowRow(row);
 			this.setBowColumn(column);
 			this.setHorizontal(horizontal);
 
+			// vertical case
 			if (!horizontal) {
 				for (int i = row; i < (row + this.getLength()); i++) {
 					theShip[i][column] = this; // putting a reference to the ship in each of 1 or more locations
 				}
 			}
 
+			// horizontal case
 			if (horizontal) {
 				for (int j = column; j < (column + this.getLength()); j++) {
 					theShip[row][j] = this; // putting a reference to the ship in each of 1 or more locations
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -170,7 +170,7 @@ public abstract class Ship {
 	 * 
 	 * @param row
 	 * @param column
-	 * @return
+	 * @return boolean
 	 */
 	boolean shootAt(int row, int column) {
 		if (!this.isSunk()) {
@@ -189,7 +189,7 @@ public abstract class Ship {
 	/**
 	 * Return true if every part of the ship has been hit, false otherwise.
 	 * 
-	 * @return
+	 * @return boolean
 	 */
 	boolean isSunk() {
 		for (boolean b : Arrays.copyOfRange(this.hit, 0, this.length)) {

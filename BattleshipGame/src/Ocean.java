@@ -47,17 +47,17 @@ public class Ocean {
 		Ship[] shipsToPlace = { new Battleship(), new Cruiser(), new Cruiser(), new Destroyer(), new Destroyer(),
 				new Destroyer(), new Submarine(), new Submarine(), new Submarine(), new Submarine() };
 
-		int placeRow = rand.nextInt(9 - 0) + 0;
-		int placeCol = rand.nextInt(9 - 0) + 0;
+		int placeRow = rand.nextInt(10 - 0) + 0;
+		int placeCol = rand.nextInt(10 - 0) + 0;
 		boolean placeHor = rand.nextBoolean();
 
-		// for each ship, generate a random location and horizontal position and see if
+		// for each ship, generate a random location (between 0 and 9) and horizontal
+		// position and see if
 		// it's okay to place
 		for (Ship s : shipsToPlace) {
-
 			while (!s.okToPlaceShipAt(placeRow, placeCol, placeHor, this)) {
-				placeRow = rand.nextInt(9 - 0) + 0;
-				placeCol = rand.nextInt(9 - 0) + 0;
+				placeRow = rand.nextInt(10 - 0) + 0;
+				placeCol = rand.nextInt(10 - 0) + 0;
 				placeHor = rand.nextBoolean();
 			}
 			s.placeShipAt(placeRow, placeCol, placeHor, this);
